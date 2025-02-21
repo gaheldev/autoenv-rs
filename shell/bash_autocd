@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function autocd() {
-	VERBOSE=''
+	VERBOSE=
 	INARGS=()
 	for i in "$@"
 	do
@@ -18,7 +18,13 @@ function autocd() {
 
 	local old_dir="$PWD"
 
-	builtin cd "${INARGS}" || return
+	# do not pass any arg to cd if only -v or no args passed
+	# otherwise `cd ` does not move to home dir
+	if [ ${#INARGS[@]} -lt 1 ]; then
+		builtin cd || return
+	else
+		builtin cd "${INARGS}" || return
+	fi
 
 	local new_dir="$PWD"
 

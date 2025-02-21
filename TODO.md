@@ -48,6 +48,7 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 -[ ] bash test suite
 
 ### regressions
+-[ ] `cd` moves to home directory
 -[ ] in and out of env
 -[ ] nested folders of env
 -[ ] in and out of env from/to nested folder
@@ -56,6 +57,8 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 -[ ] source `.env` from ancestors to children
 -[ ] source `.env.leave` from children to ancestors
 -[ ] `cd -` is coherent (last folder before running autocd)
+
+-[ ] all cd options
 
 ### to implement
 -[ ] authorize new env files
