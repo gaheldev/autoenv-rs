@@ -5,8 +5,8 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 ## `autoenv` functionalities
 
 -[x] `cd` wrapper
--[ ] source `.env`
--[ ] source `.env.leave`
+-[x] source `.env`
+-[x] source `.env.leave`
 -[ ] manual authorization of `.env` and `.env.leave` files
 -[ ] dialog on first run to authorize files
 -[ ] show file content on authorization

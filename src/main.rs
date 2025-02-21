@@ -46,27 +46,37 @@ fn main() {
     let mut output = Output::new();
 
 
-    // if let Some(f) = get_envleave_file(&source) {
-    //     output.push(shell_command::source(f.to_str().unwrap()));
-    // }
+    if let Some(f) = get_envleave_file(&source) {
+        output.push(shell_command::source(f.to_str().unwrap()));
+    }
 
     output.push(shell_command::cd(target.to_str().unwrap()));
 
-    // if let Some(f) = get_env_file(&target) {
-    //     output.push(shell_command::source(f.to_str().unwrap()));
-    // }
+    if let Some(f) = get_env_file(&target) {
+        output.push(shell_command::source(f.to_str().unwrap()));
+    }
 
     output.send()
 }
 
 
 fn get_envleave_file(dir: &Path) -> Option<PathBuf> {
-    todo!()
+    let env_path = Path::new(dir).join(".env.leave");
+
+    match env_path.is_file() {
+        true => Some(env_path),
+        false => None,
+    }
 }
 
 
 fn get_env_file(dir: &Path) -> Option<PathBuf> {
-    todo!()
+    let env_path = Path::new(dir).join(".env");
+
+    match env_path.is_file() {
+        true => Some(env_path),
+        false => None,
+    }
 }
 
 
@@ -80,7 +90,3 @@ mod shell_command {
         format!("builtin cd {dir}")
     }
 }
-
-// fn get_env_file(cwd: PathBuf) -> Result<PathBuf, String> {
-//     let p = Path::join(&self, path)
-// }
