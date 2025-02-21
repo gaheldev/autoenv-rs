@@ -2,10 +2,20 @@
 
 wraps `cd` to automatically run `.env` file when moving in directory and `.env.leave` when leaving directory
 
+## BUGS
+- source `.env` from ancestors to children
+
+
+## REFACTOR
+- type for env files + merge get_env functions
+- encapsulate logic for sourcing env files
+
+
 ## Installation
 -[ ] automatically create ~/.autoenv-rs/bash_autocd
 -[ ] add source bash_autocd to bashrc
 -[ ] optionally add alias to cd
+
 
 ## `autoenv` functionalities
 
@@ -18,7 +28,37 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 
 -[ ] custom cd
 -[ ] custom env file names
--[ ] walk through dirs to activate upper folders env (properly run .env from its folder on the way, unlike autoenv)
+-[x] walk through dirs to activate upper folders env (properly source `.env` from its folder on the way, unlike autoenv)
+-[x] walk through dirs to deactivate non common ancestors `.env.leave` (properly source `.env.leave` from its folder on the way, unlike autoenv)
+
+
+## additional functionalities?
+-[ ] .env.exclusive file that's only active for the exact folder
+-[ ] .env.leave.exclusive file that deactivate when leaving the exact folder
+
+-[ ] .env.override to not apply ancestors env ?
+
+
+## Tests
+### framework
+-[ ] makefile or cargo test can run bash tests?
+-[ ] bash test suite
+
+### regressions
+-[ ] in and out of env
+-[ ] nested folders of env
+-[ ] in and out of env from/to nested folder
+-[ ] on load in all places
+-[ ] time cd from deeply nested folder to deeply nested folder with many uncommon ancestors with many envs
+-[ ] source `.env` from ancestors to children
+-[ ] source `.env.leave` from children to ancestors
+-[ ] `cd -` is coherent (last folder before running autocd)
+
+### to implement
+-[ ] authorize new env files
+-[ ] remove env should remove authorization
+-[ ] don't run parent env if already done
+
 
 ## `cd` wrapper
 
