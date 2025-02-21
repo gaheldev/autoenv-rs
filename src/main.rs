@@ -12,6 +12,10 @@ struct Cli {
     /// Directory to move to
     #[arg(long)]
     new_dir: String,
+
+    /// Verbose: print all sourced envs
+    #[arg(short, long, default_value_t=false)]
+    verbose: bool,
 }
 
 
@@ -51,6 +55,9 @@ fn main() {
         for ancestor in source.ancestors() {
             if !target.starts_with(ancestor) {
                 if let Some(f) = get_envleave_file(ancestor) {
+                    if cli.verbose {
+                        output.push(shell_command::verbose(f.to_str().unwrap()));
+                    }
                     output.push(shell_command::source(f.to_str().unwrap()));
                 }
             }
@@ -66,6 +73,9 @@ fn main() {
     // run all parent folders env files from ancestors to children
     for ancestor in ancestors.iter().rev() {
         if let Some(f) = get_env_file(ancestor) {
+            if cli.verbose {
+                output.push(shell_command::verbose(f.to_str().unwrap()));
+            }
             output.push(shell_command::cd(ancestor.to_str().unwrap()));
             output.push(shell_command::source(f.to_str().unwrap()));
         };
@@ -108,5 +118,11 @@ mod shell_command {
     // TODO: parameterize cd?
     pub fn cd(dir: &str) -> String {
         format!("builtin cd {dir}")
+    }
+
+    pub fn verbose(f: &str) -> String {
+        let text = format!("source {f}");
+        let dashes = "-".repeat(text.len());
+        format!("echo source {f}; echo {dashes}")
     }
 }

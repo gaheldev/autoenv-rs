@@ -1,17 +1,31 @@
 #!/bin/bash
 
 function autocd() {
-	# TODO: get new_dir from separate process without actually cd from shell process
+	VERBOSE=''
+	INARGS=()
+	for i in "$@"
+	do
+		case $i in
+			-v)
+				VERBOSE=-v
+				# do not pass to cd
+				;;
+			*)
+				INARGS+=("$i")
+				;;
+		esac
+	done
+
 	local old_dir="$PWD"
 
-	builtin cd "$@" || return
+	builtin cd "${INARGS}" || return
 
 	local new_dir="$PWD"
 
 	builtin cd "$old_dir"
 
 	local result
-	result="$(autoenv-rs --old-dir="$old_dir" --new-dir="$new_dir")"
+	result="$(autoenv-rs --old-dir="$old_dir" --new-dir="$new_dir" $VERBOSE)"
 
 	# DEBUG
 	# echo "autoenv-rs output: " ${result}
