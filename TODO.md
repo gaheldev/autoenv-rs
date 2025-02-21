@@ -3,6 +3,7 @@
 wraps `cd` to automatically run `.env` file when moving in directory and `.env.leave` when leaving directory
 
 ## BUGS
+- cd - doesn't work after sourcing .bashrc
 
 
 ## REFACTOR
