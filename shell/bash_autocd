@@ -17,3 +17,9 @@ function autocd() {
 	# echo "autoenv-rs output: " ${result}
 	eval "${result}"
 }
+
+function on_load() {
+	autocd .
+}
+
+on_load
