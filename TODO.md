@@ -2,6 +2,11 @@
 
 wraps `cd` to automatically run `.env` file when moving in directory and `.env.leave` when leaving directory
 
+## Installation
+-[ ] automatically create ~/.autoenv-rs/bash_autocd
+-[ ] add source bash_autocd to bashrc
+-[ ] optionally add alias to cd
+
 ## `autoenv` functionalities
 
 -[x] `cd` wrapper
@@ -11,6 +16,8 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 -[ ] dialog on first run to authorize files
 -[ ] show file content on authorization
 
+-[ ] custom cd
+-[ ] custom env file names
 -[ ] walk through dirs to activate upper folders env (properly run .env from its folder on the way, unlike autoenv)
 
 ## `cd` wrapper
