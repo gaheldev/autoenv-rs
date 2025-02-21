@@ -46,8 +46,11 @@ fn main() {
     let mut output = Output::new();
 
 
-    if let Some(f) = get_envleave_file(&source) {
-        output.push(shell_command::source(f.to_str().unwrap()));
+    // only run .env.leave if getting out of directory, not deeper inside
+    if !target.starts_with(&source) {
+        if let Some(f) = get_envleave_file(&source) {
+            output.push(shell_command::source(f.to_str().unwrap()));
+        }
     }
 
     output.push(shell_command::cd(target.to_str().unwrap()));
