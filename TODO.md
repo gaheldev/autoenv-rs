@@ -3,12 +3,12 @@
 wraps `cd` to automatically run `.env` file when moving in directory and `.env.leave` when leaving directory
 
 ## BUGS
-- source `.env` from ancestors to children
 
 
 ## REFACTOR
 - type for env files + merge get_env functions
 - encapsulate logic for sourcing env files
+- implementation of rev() for ancestors() ?
 
 
 ## Installation

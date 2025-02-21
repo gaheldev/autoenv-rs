@@ -57,8 +57,14 @@ fn main() {
         }
     }
 
-    // run all parent folders env files
+    // push ancestors to vec because ancestors() does not implement rev()
+    let mut ancestors = Vec::new();
     for ancestor in target.ancestors() {
+        ancestors.push(ancestor);
+    }
+
+    // run all parent folders env files from ancestors to children
+    for ancestor in ancestors.iter().rev() {
         if let Some(f) = get_env_file(ancestor) {
             output.push(shell_command::cd(ancestor.to_str().unwrap()));
             output.push(shell_command::source(f.to_str().unwrap()));
