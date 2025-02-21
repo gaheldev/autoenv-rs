@@ -65,6 +65,9 @@ fn main() {
         };
     }
 
+    // make sure `cd -` goes back to source folder after cd
+    output.push(shell_command::cd(source.to_str().unwrap()));
+
     output.push(shell_command::cd(target.to_str().unwrap()));
 
     output.send()
