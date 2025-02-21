@@ -38,6 +38,8 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 
 -[ ] .env.override to not apply ancestors env ?
 
+-[ ] add `cd -v` to display sourced envs
+
 
 ## Tests
 ### framework
@@ -57,7 +59,8 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 ### to implement
 -[ ] authorize new env files
 -[ ] remove env should remove authorization
--[ ] don't run parent env if already done
+
+-[ ] don't run parent env if already done ? (autoenv does, autoenv-rs too for now)
 
 
 ## `cd` wrapper
