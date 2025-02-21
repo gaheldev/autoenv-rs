@@ -4,7 +4,7 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 
 ## `autoenv` functionalities
 
--[ ] `cd` wrapper
+-[x] `cd` wrapper
 -[ ] source `.env`
 -[ ] source `.env.leave`
 -[ ] manual authorization of `.env` and `.env.leave` files
@@ -15,12 +15,12 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 
 ## `cd` wrapper
 
--[ ] `cd [dir]` + error code 0 if changed dir, 1 otherwise
--[ ] `cd` -> `$HOME`
--[ ] `-L`
--[ ] `-P` + error 0 if changed and `$PWD` successfully set
--[ ] `-e`
--[ ] `-@`
+-[x] `cd [dir]` + error code 0 if changed dir, 1 otherwise
+-[x] `cd` -> `$HOME`
+-[x] `-L`
+-[x] `-P` + error 0 if changed and `$PWD` successfully set
+-[x] `-e`
+-[x] `-@`
 
 doc
 ```

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+dir="$1"
+
+echo
+echo ===================
+echo         RUN
+echo ===================
+
+(
+source ~/.bashrc
+source ~/.autoenv-rs/bash_autocd
+which cd
+echo "sent command:"
+autoenv-rs --old-dir=`pwd` --new-dir="$dir" # print commands
+echo "autocd:"
+time autocd "$dir"
+echo "pwd:" `pwd`
+)

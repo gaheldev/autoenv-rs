@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# TODO
+source shell/bash_autocd
+cp target/release/autoenv-rs ~/.local/bin/
