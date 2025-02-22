@@ -48,20 +48,21 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 -[ ] bash test suite
 
 ### regressions
--[ ] `cd` moves to home directory
--[ ] in and out of env
--[ ] nested folders of env
--[ ] in and out of env from/to nested folder
--[ ] on load in all places
+-[x] `cd` moves to home directory
+-[x] in and out of env
+-[x] nested folders of env
+-[x] in and out of env from/to nested folder
+-[x] on load in all places
 -[ ] time cd from deeply nested folder to deeply nested folder with many uncommon ancestors with many envs
--[ ] source `.env` from ancestors to children
--[ ] source `.env.leave` from children to ancestors
--[ ] `cd -` is coherent (last folder before running autocd)
+-[x] source `.env` from ancestors to children
+-[x] source `.env.leave` from children to ancestors
+-[x] `cd -` is coherent (last folder before running autocd)
 
 -[ ] all cd options
 
 ### to implement
 -[ ] authorize new env files
+-[ ] `cd -f` to bypass authorization
 -[ ] remove env should remove authorization
 
 -[ ] don't run parent env if already done ? (autoenv does, autoenv-rs too for now)

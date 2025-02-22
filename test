@@ -1,19 +1,161 @@
 #!/bin/bash
 
-dir="$1"
+cargo build
+source ~/.autoenv-rs/bash_autocd
+
+TEST_DIR=`pwd`/bash_tests
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+expect() {
+	case "$AUTOENV_RS_TEST" in
+		$1)
+			RES=true
+			;;
+		*)
+			RES=false
+			;;
+	esac
+	display_result $RES
+}
+
+expect_dir() {
+	if [ `pwd` = "$1" ]; then
+		display_result true
+	else
+		display_result false
+	fi
+}
+
+display_result() {
+	SPACING=71
+	dir_size=${#TEST_NAME}
+	spaces=`printf ' %.0s' $(seq 1 1 $(($SPACING-$dir_size)))`
+	if $1; then
+		echo -e "${TEST_NAME}: ${spaces}${GREEN}SUCCESS${NC}"
+	else
+		# additional space to align with SUCCESS
+		echo -e "${TEST_NAME}: ${spaces}${RED} FAILED${NC}"
+	fi
+}
+
+TEST_NAME=
+DEFINE() {
+	TEST_NAME=$1
+	echo `printf -- '-%.0s' {1..80}`
+}
+
+
+#=========================================
+#                 TESTS                  | 
+#=========================================
+
+
+#===================================
+DEFINE on_load
+#===================================
+(
+builtin cd ${TEST_DIR}/${TEST_NAME}
+expected_dir=`pwd`
+
+export AUTOENV_RS_TEST=
+
+# source ~/.bashrc # FIXME: works in the terminal, not here
+source ~/.autoenv-rs/bash_autocd
+
+expect_dir $expected_dir
+expect 'loaded'
+)
+
+
+#===================================
+DEFINE on_load/nested
+#===================================
+(
+builtin cd ${TEST_DIR}/${TEST_NAME}
+
+export AUTOENV_RS_TEST=
+
+# source ~/.bashrc # FIXME: works in the terminal, not here
+source ~/.autoenv-rs/bash_autocd
+expect 'loaded/nested'
+)
+
+
+#===================================
+DEFINE cd
+#===================================
+(
+autocd
+expect_dir $HOME
+)
+
+
+#===================================
+DEFINE cd-dash
+#===================================
+(
+expected=`pwd`
+autocd 
+expect_dir $HOME
+autocd - &>2
+expect_dir "$expected"
+)
+
+
+#===================================
+DEFINE in_out
+#===================================
+(
+autocd ${TEST_DIR}/${TEST_NAME}
+expect '_loaded_'
+
+export AUTOENV_RS_TEST=
+
+autocd ${TEST_DIR}
+expect '_unloaded_'
+)
+
+
+#===================================
+DEFINE in_out/nested
+#===================================
+(
+autocd ${TEST_DIR}/${TEST_NAME}
+expect '_loaded__nested_'
+
+export AUTOENV_RS_TEST=
+
+autocd ${TEST_DIR}
+expect '_unnested__unloaded_'
+)
+
+
+#===================================
+DEFINE n/o/e/n/v/n/e/s/t/e/d/f/o/l/d/e/r
+#===================================
+(
+echo ${TEST_NAME}:
+echo in ----------------
+time autocd ${TEST_DIR}/${TEST_NAME}
 
 echo
-echo ===================
-echo         RUN
-echo ===================
+echo out ---------------
+time autocd ${TEST_DIR}
+)
 
+
+#===================================
+DEFINE v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s
+#===================================
 (
-source ~/.bashrc
-source ~/.autoenv-rs/bash_autocd
-which cd
-echo "sent command:"
-autoenv-rs --old-dir=`pwd` --new-dir="$dir" # print commands
-echo "autocd:"
-time autocd "$dir"
-echo "pwd:" `pwd`
+echo ${TEST_NAME}:
+echo in ----------------
+time autocd ${TEST_DIR}/${TEST_NAME}
+
+echo
+echo out ---------------
+time autocd ${TEST_DIR}
 )
