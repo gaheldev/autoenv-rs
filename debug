@@ -1,5 +1,0 @@
-#!/bin/bash
-
-./deploy
-dir="$1"
-./test "$dir"
