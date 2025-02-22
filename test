@@ -159,3 +159,17 @@ echo
 echo out ---------------
 time autocd ${TEST_DIR}
 )
+
+
+#===================================
+DEFINE d/v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s
+#===================================
+(
+echo /v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s to ${TEST_NAME}:
+echo in ----------------
+time autocd ${TEST_DIR}/v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s
+
+echo
+echo out ---------------
+time autocd ${TEST_DIR}/${TEST_NAME}
+)

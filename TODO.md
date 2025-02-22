@@ -45,7 +45,7 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 ## Tests
 ### framework
 -[ ] makefile or cargo test can run bash tests?
--[ ] bash test suite
+-[x] bash test suite
 
 ### regressions
 -[x] `cd` moves to home directory
@@ -53,7 +53,7 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 -[x] nested folders of env
 -[x] in and out of env from/to nested folder
 -[x] on load in all places
--[ ] time cd from deeply nested folder to deeply nested folder with many uncommon ancestors with many envs
+-[x] time cd from deeply nested folder to deeply nested folder with many uncommon ancestors with many envs
 -[x] source `.env` from ancestors to children
 -[x] source `.env.leave` from children to ancestors
 -[x] `cd -` is coherent (last folder before running autocd)
