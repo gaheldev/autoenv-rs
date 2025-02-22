@@ -39,7 +39,7 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 
 -[ ] .env.override to not apply ancestors env ?
 
--[ ] add `cd -v` to display sourced envs
+-[x] add `cd -v` to display sourced envs
 
 
 ## Tests
