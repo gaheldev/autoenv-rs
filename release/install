@@ -1,12 +1,10 @@
 #!/bin/bash
 
-cargo build --release
-
 mkdir -p ~/.local/bin
-cp target/release/autoenv-rs ~/.local/bin/
+cp autoenv-rs ~/.local/bin/
 
 mkdir -p ~/.autoenv-rs
-cp shell/autoenv_rs_cd ~/.autoenv-rs
+cp autoenv_rs_cd ~/.autoenv-rs/
 
 echo
 echo Add the following lines to your .bashrc:

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+function __autoenv_rs_cd__() {
+	VERBOSE=
+	INARGS=()
+	for i in "$@"
+	do
+		case $i in
+			-v)
+				VERBOSE=-v
+				# do not pass to cd
+				;;
+			*)
+				INARGS+=("$i")
+				;;
+		esac
+	done
+
+	local old_dir="$PWD"
+
+	# do not pass any arg to cd if only -v or no args passed
+	# otherwise `cd ` does not move to home dir
+	if [ ${#INARGS[@]} -lt 1 ]; then
+		builtin cd || return
+	else
+		builtin cd "${INARGS}" || return
+	fi
+
+	local new_dir="$PWD"
+
+	builtin cd "$old_dir"
+
+	local result
+	result="$(autoenv-rs --old-dir="$old_dir" --new-dir="$new_dir" $VERBOSE)"
+
+	# DEBUG
+	# echo "autoenv-rs output: " ${result}
+	eval "${result}"
+}
+
+function on_load() {
+	__autoenv_rs_cd__ .
+}
+
+on_load

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cargo build --release
+
+cp target/release/autoenv-rs release/
+cp shell/autoenv_rs_cd release/
+nvim release/CHANGELOG.md
+
+zip -r release.zip release/
