@@ -2,7 +2,7 @@
 
 cargo build
 mkdir -p ~/.autoenv-rs/
-cp shell/bash_autocd ~/.autoenv-rs # make sure to source the file in .bashrc
+cp shell/autoenv_rs_cd ~/.autoenv-rs/ # make sure to source the file in .bashrc
 # FIXME: create a deploy function and source this file so .bashrc can be sourced in shell process
 source ~/.bashrc # does not work for shell process
 cp target/debug/autoenv-rs ~/.local/bin/

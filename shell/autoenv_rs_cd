@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function autocd() {
+function __autoenv_rs_cd__() {
 	VERBOSE=
 	INARGS=()
 	for i in "$@"
@@ -39,7 +39,7 @@ function autocd() {
 }
 
 function on_load() {
-	autocd .
+	__autoenv_rs_cd__ .
 }
 
 on_load

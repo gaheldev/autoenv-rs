@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cargo build
-source ~/.autoenv-rs/bash_autocd
+source ~/.autoenv-rs/autoenv_rs_cd
 
 TEST_DIR=`pwd`/bash_tests
 
@@ -63,7 +63,7 @@ expected_dir=`pwd`
 export AUTOENV_RS_TEST=
 
 # source ~/.bashrc # FIXME: works in the terminal, not here
-source ~/.autoenv-rs/bash_autocd
+source ~/.autoenv-rs/autoenv_rs_cd
 
 expect_dir $expected_dir
 expect 'loaded'
@@ -79,7 +79,7 @@ builtin cd ${TEST_DIR}/${TEST_NAME}
 export AUTOENV_RS_TEST=
 
 # source ~/.bashrc # FIXME: works in the terminal, not here
-source ~/.autoenv-rs/bash_autocd
+source ~/.autoenv-rs/autoenv_rs_cd
 expect 'loaded/nested'
 )
 
@@ -88,7 +88,7 @@ expect 'loaded/nested'
 DEFINE cd
 #===================================
 (
-autocd
+__autoenv_rs_cd__
 expect_dir $HOME
 )
 
@@ -98,9 +98,9 @@ DEFINE cd-dash
 #===================================
 (
 expected=`pwd`
-autocd 
+__autoenv_rs_cd__
 expect_dir $HOME
-autocd - &>2
+__autoenv_rs_cd__ - &> /dev/null
 expect_dir "$expected"
 )
 
@@ -109,12 +109,12 @@ expect_dir "$expected"
 DEFINE in_out
 #===================================
 (
-autocd ${TEST_DIR}/${TEST_NAME}
+__autoenv_rs_cd__ ${TEST_DIR}/${TEST_NAME}
 expect '_loaded_'
 
 export AUTOENV_RS_TEST=
 
-autocd ${TEST_DIR}
+__autoenv_rs_cd__ ${TEST_DIR}
 expect '_unloaded_'
 )
 
@@ -123,12 +123,12 @@ expect '_unloaded_'
 DEFINE in_out/nested
 #===================================
 (
-autocd ${TEST_DIR}/${TEST_NAME}
+__autoenv_rs_cd__ ${TEST_DIR}/${TEST_NAME}
 expect '_loaded__nested_'
 
 export AUTOENV_RS_TEST=
 
-autocd ${TEST_DIR}
+__autoenv_rs_cd__ ${TEST_DIR}
 expect '_unnested__unloaded_'
 )
 
@@ -139,11 +139,11 @@ DEFINE n/o/e/n/v/n/e/s/t/e/d/f/o/l/d/e/r
 (
 echo ${TEST_NAME}:
 echo in ----------------
-time autocd ${TEST_DIR}/${TEST_NAME}
+time __autoenv_rs_cd__ ${TEST_DIR}/${TEST_NAME}
 
 echo
 echo out ---------------
-time autocd ${TEST_DIR}
+time __autoenv_rs_cd__ ${TEST_DIR}
 )
 
 
@@ -153,11 +153,11 @@ DEFINE v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s
 (
 echo ${TEST_NAME}:
 echo in ----------------
-time autocd ${TEST_DIR}/${TEST_NAME}
+time __autoenv_rs_cd__ ${TEST_DIR}/${TEST_NAME}
 
 echo
 echo out ---------------
-time autocd ${TEST_DIR}
+time __autoenv_rs_cd__ ${TEST_DIR}
 )
 
 
@@ -167,9 +167,9 @@ DEFINE d/v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s
 (
 echo /v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s to ${TEST_NAME}:
 echo in ----------------
-time autocd ${TEST_DIR}/v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s
+time __autoenv_rs_cd__ ${TEST_DIR}/v/e/r/y/n/e/s/t/e/d/f/o/l/d/e/r/s
 
 echo
 echo out ---------------
-time autocd ${TEST_DIR}/${TEST_NAME}
+time __autoenv_rs_cd__ ${TEST_DIR}/${TEST_NAME}
 )
