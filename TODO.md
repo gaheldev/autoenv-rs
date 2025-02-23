@@ -4,6 +4,7 @@ wraps `cd` to automatically run `.env` file when moving in directory and `.env.l
 
 ## BUGS
 - cd - doesn't work after sourcing .bashrc
+- help does not document additional cd arguments
 
 
 ## REFACTOR
