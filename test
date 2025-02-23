@@ -4,6 +4,7 @@ cargo build
 source ~/.autoenv-rs/autoenv_rs_cd
 
 TEST_DIR=`pwd`/bash_tests
+AUTOENV_RS_TEST=
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -19,6 +20,9 @@ expect() {
 			;;
 	esac
 	display_result $RES
+	if ! $RES ; then
+		echo "    -> got ${AUTOENV_RS_TEST}"
+	fi
 }
 
 expect_dir() {
