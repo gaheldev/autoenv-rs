@@ -1,5 +1,6 @@
 use std::path::{Path, PathBuf};
 use clap::Parser;
+mod shell;
 
 
 #[derive(Parser, Debug)]
@@ -56,9 +57,9 @@ fn main() {
             if !target.starts_with(ancestor) {
                 if let Some(f) = get_envleave_file(ancestor) {
                     if cli.verbose {
-                        output.push(shell_command::verbose(f.to_str().unwrap()));
+                        output.push(shell::verbose(f.to_str().unwrap()));
                     }
-                    output.push(shell_command::source(f.to_str().unwrap()));
+                    output.push(shell::source(f.to_str().unwrap()));
                 }
             }
         }
@@ -74,17 +75,17 @@ fn main() {
     for ancestor in ancestors.iter().rev() {
         if let Some(f) = get_env_file(ancestor) {
             if cli.verbose {
-                output.push(shell_command::verbose(f.to_str().unwrap()));
+                output.push(shell::verbose(f.to_str().unwrap()));
             }
-            output.push(shell_command::cd(ancestor.to_str().unwrap()));
-            output.push(shell_command::source(f.to_str().unwrap()));
+            output.push(shell::cd(ancestor.to_str().unwrap()));
+            output.push(shell::source(f.to_str().unwrap()));
         };
     }
 
     // make sure `cd -` goes back to source folder after cd
-    output.push(shell_command::cd(source.to_str().unwrap()));
+    output.push(shell::cd(source.to_str().unwrap()));
 
-    output.push(shell_command::cd(target.to_str().unwrap()));
+    output.push(shell::cd(target.to_str().unwrap()));
 
     output.send()
 }
@@ -106,23 +107,5 @@ fn get_env_file(dir: &Path) -> Option<PathBuf> {
     match env_path.is_file() {
         true => Some(env_path),
         false => None,
-    }
-}
-
-
-mod shell_command {
-    pub fn source(f: &str) -> String {
-        format!("source {f}")
-    }
-
-    // TODO: parameterize cd?
-    pub fn cd(dir: &str) -> String {
-        format!("builtin cd {dir}")
-    }
-
-    pub fn verbose(f: &str) -> String {
-        let text = format!("source {f}");
-        let dashes = "-".repeat(text.len());
-        format!("echo source {f}; echo {dashes}")
     }
 }
