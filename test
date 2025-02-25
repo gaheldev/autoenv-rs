@@ -21,7 +21,8 @@ expect() {
 	esac
 	display_result $RES
 	if ! $RES ; then
-		echo "    -> got ${AUTOENV_RS_TEST}"
+		echo "    -> expected \"$1\""
+		echo "    -> got \"${AUTOENV_RS_TEST}\""
 	fi
 }
 
@@ -30,6 +31,8 @@ expect_dir() {
 		display_result true
 	else
 		display_result false
+		echo "    -> expected \"$1\""
+		echo "    -> got \"$(pwd)\""
 	fi
 }
 
