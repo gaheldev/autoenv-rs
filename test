@@ -10,6 +10,20 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+mkdir -p bash_tests/tmp/
+n_tests="$(pwd)/bash_tests/tmp/n_tests"
+successful_tests="$(pwd)/bash_tests/tmp/successful_tests"
+echo 0 > $n_tests
+echo 0 > $successful_tests
+
+
+# increment value in 1st arg file
+increment() {
+	cur=`cat $1`
+	echo $((++cur)) > $1
+}
+
+
 expect() {
 	case "$AUTOENV_RS_TEST" in
 		$1)
@@ -40,8 +54,10 @@ display_result() {
 	SPACING=71
 	dir_size=${#TEST_NAME}
 	spaces=`printf ' %.0s' $(seq 1 1 $(($SPACING-$dir_size)))`
+	increment $n_tests
 	if $1; then
 		echo -e "${TEST_NAME}: ${spaces}${GREEN}SUCCESS${NC}"
+		increment $successful_tests
 	else
 		# additional space to align with SUCCESS
 		echo -e "${TEST_NAME}: ${spaces}${RED} FAILED${NC}"
@@ -180,3 +196,23 @@ echo
 echo out ---------------
 time __autoenv_rs_cd__ ${TEST_DIR}/${TEST_NAME}
 )
+
+
+
+#=========================================
+#                RESULTS                 |
+#=========================================
+
+if [[ $(cat $successful_tests) == $(cat $n_tests) ]]; then
+	success="${GREEN}SUCCESS${NC}"
+else
+	success="${RED}FAILED${NC}"
+fi
+
+echo
+echo "-------------------------------------------------------------------------------"
+echo "                                  RESULTS                                      "
+echo "-------------------------------------------------------------------------------"
+# echo Results:
+echo -e "test coverage => $(cat $successful_tests)/$(cat $n_tests) $success"
+echo
