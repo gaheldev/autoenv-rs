@@ -28,10 +28,10 @@ function __autoenv_rs_cd__() {
 
 	local new_dir="$PWD"
 
-	builtin cd "$old_dir"
+	builtin cd "${old_dir}"
 
 	local result
-	result="$(autoenv-rs --old-dir="$old_dir" --new-dir="$new_dir" $VERBOSE)"
+	result="$(autoenv-rs --old-dir="${old_dir}" --new-dir="${new_dir}" $VERBOSE)"
 
 	# DEBUG
 	# echo "autoenv-rs output: " ${result}
