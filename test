@@ -178,6 +178,16 @@ expect 'space'
 
 
 #===================================
+DEFINE "backslash\path"
+#===================================
+(
+__autoenv_rs_cd__ ${TEST_DIR}/"${TEST_NAME}"
+expect_dir ${TEST_DIR}/"${TEST_NAME}"
+expect 'backslash'
+)
+
+
+#===================================
 DEFINE n/o/e/n/v/n/e/s/t/e/d/f/o/l/d/e/r
 #===================================
 (
